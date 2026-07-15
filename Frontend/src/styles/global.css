@@ -1,0 +1,34 @@
+:root {
+  --color-bg: #faf6f0;
+  --color-surface: #ffffff;
+  --color-border: #e7dccc;
+  --color-ink: #2b2420;
+  --color-ink-soft: #8c8073;
+  --color-accent: #ff6b45;
+  --color-pill-bg: #f2eae0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Public Sans', system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
