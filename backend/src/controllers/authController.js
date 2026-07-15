@@ -33,15 +33,32 @@ async function login(req, res) {
   });
 }
 
-// POST /api/auth/register — admin-only, creates chef or admin accounts
+// POST /api/auth/register — admin-only, creates chef or admin accounts.
+// Exception: on a brand-new database with zero users, this bootstraps the very
+// first account as admin with no auth required — there's no admin yet to grant
+// permission, so this is the only way in. It locks itself out the moment any
+// user exists.
 async function registerStaff(req, res) {
   const { name, email, password, role } = req.body;
 
-  if (!name || !email || !password || !role) {
+  const userCount = await User.countDocuments();
+  const isBootstrap = userCount === 0;
+
+  if (!isBootstrap) {
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: 'Not authorized, no token provided' });
+    }
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Forbidden: insufficient permissions' });
+    }
+  }
+
+  if (!name || !email || !password || (!isBootstrap && !role)) {
     return res.status(400).json({ success: false, message: 'name, email, password and role are required' });
   }
 
-  if (!['admin', 'chef'].includes(role)) {
+  const finalRole = isBootstrap ? 'admin' : role;
+  if (!['admin', 'chef'].includes(finalRole)) {
     return res.status(400).json({ success: false, message: 'role must be admin or chef' });
   }
 
@@ -50,10 +67,11 @@ async function registerStaff(req, res) {
     return res.status(409).json({ success: false, message: 'A user with this email already exists' });
   }
 
-  const user = await User.create({ name, email: email.toLowerCase(), password, role });
+  const user = await User.create({ name, email: email.toLowerCase(), password, role: finalRole });
 
   res.status(201).json({
     success: true,
+    bootstrap: isBootstrap,
     user: { id: user._id, name: user.name, email: user.email, role: user.role },
   });
 }
