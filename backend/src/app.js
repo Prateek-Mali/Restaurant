@@ -1,6 +1,7 @@
 require('express-async-errors');
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/authRoutes');
 const menuRoutes = require('./routes/menuRoutes');
@@ -16,7 +17,12 @@ const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-app.get('/api/health', (req, res) => res.json({ success: true, message: 'OK' }));
+const DB_STATES = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+
+app.get('/api/health', (req, res) => {
+  const dbState = DB_STATES[mongoose.connection.readyState] || 'unknown';
+  res.json({ success: true, message: 'OK', database: dbState });
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/menu', menuRoutes);
