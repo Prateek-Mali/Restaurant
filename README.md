@@ -246,6 +246,6 @@ Working end to end and deployed.
 ## Known limitations
 
 - **Free-tier cold starts.** The API sleeps after ~15 min idle; the first request takes ~50s.
-- **Online payment is incomplete.** `/api/payments/initiate` creates a Razorpay order, but the frontend checkout modal and the signature-verification round-trip aren't finished. Without Razorpay keys set, the app cleanly falls back to "pay at the counter," which staff confirm from the Payments tab.
+- **Online payment is incomplete.** `/api/payments/initiate` creates a Razorpay order, but the frontend checkout modal and the signature-verification round-trip aren't finished. Without Razorpay keys set, the app cleanly falls back to "pay at the counter," which staff confirm from the Payments tab. → **Picking this up? Start with [docs/ADDING_PAYMENTS.md](docs/ADDING_PAYMENTS.md).**
 - **No test suite.** Verification so far has been manual.
 - **Styling is inline.** Components use inline style objects rather than a CSS framework.

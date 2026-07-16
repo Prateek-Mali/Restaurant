@@ -144,6 +144,11 @@ async function getOpenTabs(req, res) {
 
 // PATCH /api/orders/checkout/:tableId — chef/admin only. Marks every unpaid order for a
 // table as paid in one go and frees the table for the next customer.
+//
+// NOTE(payments): this is the reference implementation for settling a bill — the
+// online-payment path in paymentController.verifyPayment must end up doing exactly
+// this (settle whole tab → free table → emit PAYMENT_UPDATED). If you're adding
+// Razorpay, share this logic rather than reimplementing it. docs/ADDING_PAYMENTS.md
 async function checkoutTable(req, res) {
   const table = await Table.findById(req.params.tableId);
   if (!table) {

@@ -1,3 +1,15 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// ⚠️  UNFINISHED — online payment is NOT production-ready. Read docs/ADDING_PAYMENTS.md
+//     before changing anything here.
+//
+//     Working today: cash/counter payment, settled by staff via
+//     orderController.checkoutTable(). That is the correct reference behaviour.
+//
+//     The trap: this file is written PER-ORDER, but a bill is a running tab of
+//     MANY orders on one table. Wiring a checkout UI to it as-is would charge the
+//     customer for only their first round and leave the rest of the tab unpaid.
+//     Fix the model to be tab-scoped first. See §3 of the handoff doc.
+// ─────────────────────────────────────────────────────────────────────────────
 const crypto = require('crypto');
 const Razorpay = require('razorpay');
 const Payment = require('../models/Payment');
@@ -13,6 +25,10 @@ function getRazorpayInstance() {
 }
 
 // POST /api/payments/initiate — public. Called by the customer's screen after the bill is ready.
+//
+// TODO(payments): takes a single orderId, but should take the table's uuid and
+// charge the whole unpaid tab. Amount must always be summed server-side — never
+// accept it from the client. See docs/ADDING_PAYMENTS.md §4 Step 3.
 async function initiatePayment(req, res) {
   const { orderId, method } = req.body;
 
@@ -56,6 +72,13 @@ async function initiatePayment(req, res) {
 }
 
 // POST /api/payments/verify — handles the gateway's callback/webhook
+//
+// TODO(payments): the signature check below is correct — keep it. What's wrong is
+// what happens after: it marks ONE order paid and never frees the table, so the
+// customer's screen and the chef's Payments tab both go stale. It must do exactly
+// what orderController.checkoutTable() does — settle every unpaid order on the
+// table, set the table back to 'available', and emit PAYMENT_UPDATED.
+// Ideally share one settle function between both. See docs/ADDING_PAYMENTS.md §4 Step 4.
 async function verifyPayment(req, res) {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 

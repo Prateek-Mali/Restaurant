@@ -55,12 +55,20 @@ export function Bill() {
 
   const grandTotal = orders.reduce((sum, o) => sum + o.totalAmount, 0);
 
+  // TODO(payments): this is where the Razorpay checkout modal goes — see
+  // docs/ADDING_PAYMENTS.md §4 Step 5. Today it just calls initiate, gets a 503
+  // (no gateway keys configured), and shows the pay-at-counter fallback below.
+  //
+  // ⚠️ Note `orders[0]` — that's only the FIRST round of a multi-round tab. It's a
+  // placeholder, NOT a pattern to build on. Wiring a real modal to it would charge
+  // ₹350 on a ₹550 bill. Make the endpoint tab-scoped first, then pass `tableId`.
+  //
+  // Once verify succeeds, do NOT reset the UI here — the `payment_updated` socket
+  // listener above already handles it.
   async function handlePay() {
     setPaying(true);
     setError('');
     try {
-      // Pay-at-table online checkout isn't wired up yet (needs one Razorpay order per
-      // running tab, not per individual order) — for now the counter/chef confirms cash.
       await paymentService.initiatePayment(orders[0]._id, 'card');
     } catch (err) {
       setError(
