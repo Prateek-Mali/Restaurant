@@ -18,8 +18,14 @@ export function ChefLogin() {
       const loggedInUser = await login(email, password);
       navigate(loggedInUser.role === 'admin' ? '/admin' : '/chef');
     } catch (err) {
-      if (err.response) {
-        setError(err.response.data?.message || 'Invalid email or password');
+      // Only trust the message when it came from our own API. A response without
+      // one means we hit something else entirely (a misconfigured API URL landing
+      // on the static host, a proxy, etc.) — reporting that as a bad password
+      // sends you hunting for the wrong bug.
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else if (err.response) {
+        setError(`Unexpected response from the server (HTTP ${err.response.status}). Check the API URL configuration.`);
       } else {
         setError('Could not reach the server. Check your connection and try again.');
       }
