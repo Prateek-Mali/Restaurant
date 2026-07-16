@@ -2,6 +2,13 @@ const { v4: uuidv4 } = require('uuid');
 const Table = require('../models/Table');
 const { generateTableQR } = require('../utils/generateQR');
 
+// The QR image is derived from the table's current id + FRONTEND_URL, never stored.
+// Storing it meant every saved QR silently rotted the moment the site URL changed,
+// and old tables kept pointing at dead deployments until manually regenerated.
+async function withFreshQR(table) {
+  return { ...table.toObject(), qrCodeUrl: await generateTableQR(table.tableId) };
+}
+
 // POST /api/tables — admin-only
 async function createTable(req, res) {
   const { tableNumber } = req.body;
@@ -15,12 +22,9 @@ async function createTable(req, res) {
     return res.status(409).json({ success: false, message: 'A table with this number already exists' });
   }
 
-  const tableId = uuidv4();
-  const qrCodeUrl = await generateTableQR(tableId);
+  const table = await Table.create({ tableNumber, tableId: uuidv4() });
 
-  const table = await Table.create({ tableNumber, tableId, qrCodeUrl });
-
-  res.status(201).json({ success: true, table });
+  res.status(201).json({ success: true, table: await withFreshQR(table) });
 }
 
 // GET /api/tables/resolve/:tableId — public. Lets the customer menu page show its own table number.
@@ -35,7 +39,8 @@ async function resolveTable(req, res) {
 // GET /api/tables — admin-only
 async function getAllTables(req, res) {
   const tables = await Table.find().sort({ tableNumber: 1 });
-  res.json({ success: true, tables });
+  const withQR = await Promise.all(tables.map(withFreshQR));
+  res.json({ success: true, tables: withQR });
 }
 
 // GET /api/tables/:id — admin-only
@@ -44,10 +49,11 @@ async function getTableById(req, res) {
   if (!table) {
     return res.status(404).json({ success: false, message: 'Table not found' });
   }
-  res.json({ success: true, table });
+  res.json({ success: true, table: await withFreshQR(table) });
 }
 
-// PATCH /api/tables/:id/regenerate-qr — admin-only, rotates tableId if QR is compromised
+// PATCH /api/tables/:id/regenerate-qr — admin-only. Rotates the table's secret id,
+// which invalidates any previously printed QR (use if one is compromised).
 async function regenerateQR(req, res) {
   const table = await Table.findById(req.params.id);
   if (!table) {
@@ -55,10 +61,9 @@ async function regenerateQR(req, res) {
   }
 
   table.tableId = uuidv4();
-  table.qrCodeUrl = await generateTableQR(table.tableId);
   await table.save();
 
-  res.json({ success: true, table });
+  res.json({ success: true, table: await withFreshQR(table) });
 }
 
 // DELETE /api/tables/:id — admin-only
