@@ -1,3 +1,5 @@
+/* livePulse lives in global.css — it's shared with the customer screens. */
+
 @keyframes cardPulse {
   0%,
   100% {
@@ -5,15 +7,5 @@
   }
   50% {
     box-shadow: 0 0 0 8px rgba(255, 107, 69, 0);
-  }
-}
-
-@keyframes livePulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.35;
   }
 }

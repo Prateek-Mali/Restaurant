@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import orderService from '../../services/orderService';
-import { useSocket } from '../../hooks/useSocket';
+import { useActiveOrder } from '../../hooks/useActiveOrder';
 import { CustomerHeader } from '../../components/layout/CustomerHeader';
 import { OrderStatusTracker } from '../../components/customer/OrderStatusTracker';
 import { formatCurrency } from '../../utils/formatCurrency';
@@ -18,66 +17,30 @@ const STAGE_COPY = {
 export function OrderStatus() {
   const { tableId } = useParams();
   const navigate = useNavigate();
-  const socket = useSocket();
-
-  const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [now, setNow] = useState(Date.now());
 
-  const orderId = localStorage.getItem(`order:${tableId}`);
+  // Shares one source of truth with the menu's ActiveOrderBanner. Previously this
+  // page located the order via localStorage, which could disagree with the banner
+  // (cleared storage, a second phone at the same table) and wrongly claim there was
+  // no active order while the banner linked here.
+  const { orders, loading } = useActiveOrder(tableId);
 
-  useEffect(() => {
-    if (!orderId) {
-      setLoading(false);
-      return;
-    }
-    orderService
-      .getOrdersByTable(tableId)
-      .then((orders) => setOrder(orders.find((o) => o._id === orderId) || null))
-      .finally(() => setLoading(false));
-  }, [tableId, orderId]);
+  // Orders arrive newest-first, so the newest unpaid one is what's being cooked.
+  const trackedId = localStorage.getItem(`order:${tableId}`);
+  const order = orders.find((o) => o._id === trackedId) || orders[0] || null;
 
   useEffect(() => {
     const tick = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(tick);
   }, []);
 
+  // Once the tab is settled there's nothing left to track — send them to the receipt.
   useEffect(() => {
-    if (!socket) return;
-
-    function joinTable() {
-      socket.emit('join_table', tableId);
-      // Resync in case the status changed while disconnected (e.g. a server restart).
-      if (orderId) {
-        orderService.getOrdersByTable(tableId).then((orders) => {
-          const match = orders.find((o) => o._id === orderId);
-          if (match) setOrder(match);
-        });
-      }
-    }
-
-    joinTable();
-    socket.on('connect', joinTable);
-
-    function handleUpdate(updatedOrder) {
-      if (updatedOrder._id === orderId) setOrder(updatedOrder);
-    }
-
-    function handlePaymentUpdated() {
+    if (!loading && orders.length === 0 && trackedId) {
       localStorage.removeItem(`order:${tableId}`);
       navigate(`/menu/${tableId}/bill`);
     }
-
-    socket.on('order_status_updated', handleUpdate);
-    socket.on('new_order', handleUpdate);
-    socket.on('payment_updated', handlePaymentUpdated);
-    return () => {
-      socket.off('connect', joinTable);
-      socket.off('order_status_updated', handleUpdate);
-      socket.off('new_order', handleUpdate);
-      socket.off('payment_updated', handlePaymentUpdated);
-    };
-  }, [socket, tableId, orderId, navigate]);
+  }, [loading, orders.length, trackedId, tableId, navigate]);
 
   if (loading) {
     return <div style={{ minHeight: '100vh', background: '#FAF6F0', padding: 24, color: '#8C8073' }}>Loading order…</div>;

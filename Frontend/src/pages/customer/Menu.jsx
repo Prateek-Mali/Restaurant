@@ -3,15 +3,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import menuService from '../../services/menuService';
 import tableService from '../../services/tableService';
 import { useCart } from '../../hooks/useCart';
+import { useActiveOrder } from '../../hooks/useActiveOrder';
 import { CustomerHeader } from '../../components/layout/CustomerHeader';
 import { CategoryTabs } from '../../components/customer/CategoryTabs';
 import { MenuItemCard } from '../../components/customer/MenuItemCard';
 import { CartSummaryBar } from '../../components/customer/CartSummaryBar';
+import { ActiveOrderBanner } from '../../components/customer/ActiveOrderBanner';
 
 export function Menu() {
   const { tableId } = useParams();
   const navigate = useNavigate();
   const { lines, totalQuantity, subtotal, addItem, incItem, decItem } = useCart();
+  const { hasActiveOrder, latestStatus, total } = useActiveOrder(tableId);
 
   const [table, setTable] = useState(null);
   const [items, setItems] = useState([]);
@@ -46,6 +49,7 @@ export function Menu() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#FAF6F0', fontFamily: "'Public Sans', system-ui, sans-serif" }}>
       <CustomerHeader tableNumber={table.tableNumber} />
+      {hasActiveOrder && <ActiveOrderBanner tableId={tableId} status={latestStatus} total={total} />}
       <CategoryTabs active={category} onChange={setCategory} />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '4px 20px 24px', boxSizing: 'border-box' }}>

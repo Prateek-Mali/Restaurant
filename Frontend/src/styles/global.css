@@ -32,3 +32,14 @@ button {
 input {
   font-family: inherit;
 }
+
+/* Used by any "live" indicator dot — chef kitchen display and customer screens. */
+@keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
