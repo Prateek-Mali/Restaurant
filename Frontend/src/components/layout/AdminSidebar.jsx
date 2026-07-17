@@ -27,7 +27,7 @@ export function AdminLayout() {
         }}
       >
         <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 17, color: '#2B2420', padding: '0 8px 4px' }}>
-          Ember &amp; Oak
+          TMC
         </div>
         <div style={{ fontSize: 12, color: '#8C8073', padding: '0 8px 24px' }}>Owner Admin</div>
 

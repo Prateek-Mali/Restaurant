@@ -28,7 +28,7 @@ export function ChefLayout() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
           <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 17, color: '#2B2420' }}>
-            Ember &amp; Oak <span style={{ fontWeight: 600, color: '#8C8073', fontSize: 13, marginLeft: 6 }}>Staff Tools</span>
+            TMC <span style={{ fontWeight: 600, color: '#8C8073', fontSize: 13, marginLeft: 6 }}>Staff Tools</span>
           </div>
           <div style={{ display: 'flex', gap: 6, background: '#F2EAE0', padding: 4, borderRadius: 999 }}>
             {TABS.map((tab) => (

@@ -55,7 +55,7 @@ export function ChefLogin() {
         }}
       >
         <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 20, color: '#2B2420' }}>
-          Ember &amp; Oak
+          TMC
         </div>
         <div style={{ fontSize: 13, color: '#8C8073', marginBottom: 24 }}>Staff sign in</div>
 

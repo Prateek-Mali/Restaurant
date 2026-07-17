@@ -94,7 +94,7 @@ export function Bill() {
         <div style={{ fontSize: 14, color: '#8C8073', lineHeight: 1.5 }}>
           Your bill has been paid.
           <br />
-          See you again soon at Ember &amp; Oak.
+          See you again soon at TMC.
         </div>
         <div
           onClick={() => {
@@ -128,7 +128,7 @@ export function Bill() {
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px 12px', boxSizing: 'border-box' }}>
         <div style={{ fontSize: 12, color: '#8C8073', marginBottom: 8 }}>
-          Table {tableNumber} · Ember &amp; Oak · {orders.length} order{orders.length === 1 ? '' : 's'} this visit
+          Table {tableNumber} · TMC · {orders.length} order{orders.length === 1 ? '' : 's'} this visit
         </div>
 
         {orders.map((order, orderIdx) => (

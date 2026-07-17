@@ -1,4 +1,4 @@
-# Ember & Oak — QR Restaurant Ordering System
+# TMC — QR Restaurant Ordering System
 
 A QR-based restaurant ordering platform. Customers scan the QR code on their table to open a live menu, order from their phone, and track their food in real time — no app, no login. Orders hit the kitchen display instantly, and the owner manages the menu, tables, staff, and revenue from an admin dashboard.
 

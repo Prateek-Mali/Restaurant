@@ -11,7 +11,7 @@ export function CustomerHeader({ tableNumber, title, onBack }) {
       ) : (
         <>
           <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 22, color: '#2B2420', letterSpacing: -0.3 }}>
-            Ember &amp; Oak
+            TMC
           </div>
           {tableNumber && (
             <div
