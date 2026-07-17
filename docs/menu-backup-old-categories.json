@@ -1,0 +1,372 @@
+[
+  {
+    "_id": "6a59ef37b55c5571e5049791",
+    "name": "Kheer",
+    "description": "Creamy rice pudding flavoured with saffron and cardamom.",
+    "price": 100,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?kheer",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:23:00.000+00:00"
+  },
+  {
+    "_id": "6a59ef37b55c5571e5049792",
+    "name": "Jalebi",
+    "description": "Crispy fermented batter spirals soaked in saffron sugar syrup.",
+    "price": 90,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?jalebi",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:24:00.000+00:00"
+  },
+  {
+    "_id": "6a59ef37b55c5571e5049793",
+    "name": "Rasmalai",
+    "description": "Soft paneer discs soaked in sweetened, cardamom-spiced milk.",
+    "price": 150,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?rasmalai",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:25:00.000+00:00"
+  },
+  {
+    "_id": "6a59ef37b55c5571e5049794",
+    "name": "Kaju Katli",
+    "description": "Diamond-shaped fudge made from cashews and sugar syrup.",
+    "price": 200,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?kaju-katli",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:26:00.000+00:00"
+  },
+  {
+    "_id": "6a59ef37b55c5571e5049795",
+    "name": "Shahi Tukda",
+    "description": "Fried bread slices layered with rabri and topped with nuts.",
+    "price": 130,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?shahi-tukda",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:27:00.000+00:00"
+  },
+  {
+    "_id": "6a59ef37b55c5571e5049796",
+    "name": "Malpua",
+    "description": "Sweet pancakes soaked in sugar syrup and served with rabri.",
+    "price": 140,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?malpua",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:28:00.000+00:00"
+  },
+  {
+    "_id": "6a59ef37b55c5571e5049797",
+    "name": "Mysore Pak",
+    "description": "Rich, ghee-laden gram flour sweet with a crumbly texture.",
+    "price": 160,
+    "category": "desserts",
+    "imageUrl": "https://source.unsplash.com/featured/?mysore-pak",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:29:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e5049799",
+    "name": "Paneer Tikka",
+    "description": "Chunks of cottage cheese marinated in spiced yogurt and grilled in a tandoor.",
+    "price": 220,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Paneer%20tikka%20with%20onion%20and%20capsicum.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:00:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e504979a",
+    "name": "Chicken 65",
+    "description": "Spicy deep-fried chicken bites tossed in curry leaves and red chilli.",
+    "price": 250,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken%2065.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:01:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e504979b",
+    "name": "Veg Samosa",
+    "description": "Crispy pastry filled with spiced potatoes and green peas.",
+    "price": 80,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Samosa.JPG",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:02:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e504979c",
+    "name": "Hara Bhara Kebab",
+    "description": "Spinach and green pea patties shallow fried till golden.",
+    "price": 180,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hara%20bhara%20kabab.JPG",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:03:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e504979d",
+    "name": "Tandoori Chicken",
+    "description": "Chicken marinated overnight in yogurt and spices, roasted in a clay oven.",
+    "price": 320,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tandoori%20Chicken%20Fry.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:04:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e504979e",
+    "name": "Aloo Tikki",
+    "description": "Crispy pan-fried potato patties served with tangy chutneys.",
+    "price": 90,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aloo%20Tikki%20served%20with%20chutneys.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:05:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e504979f",
+    "name": "Fish Amritsari",
+    "description": "Batter-fried fish fillets seasoned with carom seeds and spices.",
+    "price": 280,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Amritsari%20fish.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:06:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a0",
+    "name": "Dahi Puri",
+    "description": "Crisp puris filled with potato, chutneys, and whipped yogurt.",
+    "price": 100,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dahi%20Puri.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:07:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a1",
+    "name": "Mutton Seekh Kebab",
+    "description": "Minced mutton skewers grilled with ground spices and herbs.",
+    "price": 300,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seekh%20Kebab.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:08:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a2",
+    "name": "Corn Chaat",
+    "description": "Sweet corn tossed with onions, tomatoes, and tangy spices.",
+    "price": 110,
+    "category": "starters",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Corn%20chaat.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:09:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a3",
+    "name": "Butter Chicken",
+    "description": "Tender chicken simmered in a rich tomato and butter gravy.",
+    "price": 320,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken%20makhani.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:10:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a4",
+    "name": "Paneer Butter Masala",
+    "description": "Cottage cheese cubes in a creamy tomato-cashew gravy.",
+    "price": 260,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Paneer%20makhani%20curry.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:11:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a5",
+    "name": "Dal Makhani",
+    "description": "Black lentils slow-cooked overnight with butter and cream.",
+    "price": 210,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dal%20Makhani.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:12:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a6",
+    "name": "Chicken Biryani",
+    "description": "Fragrant basmati rice layered and slow-cooked with spiced chicken.",
+    "price": 280,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken%20Biryani.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:13:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a7",
+    "name": "Palak Paneer",
+    "description": "Cottage cheese cubes cooked in a smooth spiced spinach gravy.",
+    "price": 230,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Palak%20paneer.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:14:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a8",
+    "name": "Mutton Rogan Josh",
+    "description": "Slow-braised mutton curry in an aromatic Kashmiri spice blend.",
+    "price": 350,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rogan%20josh.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:15:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497a9",
+    "name": "Chole Bhature",
+    "description": "Spiced chickpea curry served with deep-fried fluffy bread.",
+    "price": 180,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chole%20bhature.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:16:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497aa",
+    "name": "Malai Kofta",
+    "description": "Fried vegetable and paneer dumplings in a creamy mild gravy.",
+    "price": 240,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Malai%20kofta.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:17:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497ab",
+    "name": "Fish Curry",
+    "description": "Fresh fish simmered in a tangy coconut and tamarind gravy.",
+    "price": 290,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Fish%20curry.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:18:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497ac",
+    "name": "Hyderabadi Veg Biryani",
+    "description": "Mixed vegetables and basmati rice cooked together with whole spices.",
+    "price": 220,
+    "category": "mains",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Veg%20Kaju%20Biryani.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:19:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497ad",
+    "name": "Gulab Jamun",
+    "description": "Soft milk-solid dumplings soaked in warm cardamom sugar syrup.",
+    "price": 120,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gulab%20Jamun.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:20:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497ae",
+    "name": "Rasgulla",
+    "description": "Spongy cheese balls soaked in light sugar syrup.",
+    "price": 110,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rasgulla.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:21:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497af",
+    "name": "Gajar Ka Halwa",
+    "description": "Grated carrots slow-cooked in milk, ghee, and cardamom.",
+    "price": 140,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gajar%20ka%20halwa.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:22:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b0",
+    "name": "Kheer",
+    "description": "Creamy rice pudding flavoured with saffron and cardamom.",
+    "price": 100,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kheer.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:23:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b1",
+    "name": "Jalebi",
+    "description": "Crispy fermented batter spirals soaked in saffron sugar syrup.",
+    "price": 90,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jalebi.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:24:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b2",
+    "name": "Rasmalai",
+    "description": "Soft paneer discs soaked in sweetened, cardamom-spiced milk.",
+    "price": 150,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rasmalai.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:25:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b3",
+    "name": "Kaju Katli",
+    "description": "Diamond-shaped fudge made from cashews and sugar syrup.",
+    "price": 200,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kaju%20katli.JPG",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:26:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b4",
+    "name": "Shahi Tukda",
+    "description": "Fried bread slices layered with rabri and topped with nuts.",
+    "price": 130,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Shahi%20tukda.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:27:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b5",
+    "name": "Malpua",
+    "description": "Sweet pancakes soaked in sugar syrup and served with rabri.",
+    "price": 140,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Malpua.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:28:00.000+00:00"
+  },
+  {
+    "_id": "6a59f0e9b55c5571e50497b6",
+    "name": "Mysore Pak",
+    "description": "Rich, ghee-laden gram flour sweet with a crumbly texture.",
+    "price": 160,
+    "category": "desserts",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mysore%20Pak.jpg",
+    "isAvailable": true,
+    "createdAt": "2026-07-17T09:29:00.000+00:00"
+  }
+]
