@@ -3,7 +3,17 @@ import menuService from '../../services/menuService';
 import { MenuItemTable } from '../../components/admin/MenuItemTable';
 import { MenuItemForm } from '../../components/admin/MenuItemForm';
 
-const EMPTY_FORM = { name: '', description: '', price: '', category: 'starters', imageUrl: '', isAvailable: true };
+// Category is a path now: section → group → (subgroup, for Mains only).
+const EMPTY_FORM = {
+  name: '',
+  description: '',
+  price: '',
+  section: 'starters',
+  group: 'cold',
+  subgroup: '',
+  imageUrl: '',
+  isAvailable: true,
+};
 
 export function ManageMenu() {
   const [items, setItems] = useState([]);
@@ -13,6 +23,7 @@ export function ManageMenu() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [formError, setFormError] = useState('');
 
   useEffect(() => {
     loadItems();
@@ -30,6 +41,7 @@ export function ManageMenu() {
     setFormMode('add');
     setForm(EMPTY_FORM);
     setEditingId(null);
+    setFormError('');
     setFormOpen(true);
   }
 
@@ -39,18 +51,28 @@ export function ManageMenu() {
       name: item.name,
       description: item.description || '',
       price: String(item.price),
-      category: item.category,
+      section: item.section,
+      group: item.group,
+      subgroup: item.subgroup || '',
       imageUrl: item.imageUrl || '',
       isAvailable: item.isAvailable,
     });
     setEditingId(item._id);
+    setFormError('');
     setFormOpen(true);
   }
 
   async function handleSave() {
     setSaving(true);
+    setFormError('');
     try {
-      const payload = { ...form, price: Number(form.price) || 0 };
+      const payload = {
+        ...form,
+        price: Number(form.price) || 0,
+        // Sections without a cuisine level must send null, not '' — the server
+        // rejects a stray subgroup on e.g. Starters.
+        subgroup: form.subgroup || null,
+      };
       if (formMode === 'add') {
         await menuService.createMenuItem(payload);
       } else {
@@ -58,6 +80,10 @@ export function ManageMenu() {
       }
       setFormOpen(false);
       await loadItems();
+    } catch (err) {
+      // Surface the server's reason ("subgroup for mains/veg must be one of…")
+      // instead of silently closing and losing the admin's input.
+      setFormError(err.response?.data?.message || 'Could not save this item. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -106,6 +132,7 @@ export function ManageMenu() {
           onCancel={() => setFormOpen(false)}
           onSave={handleSave}
           saving={saving}
+          error={formError}
         />
       )}
     </div>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { formatCurrency } from '../../utils/formatCurrency';
 
-const CATEGORY_LABELS = { starters: 'Starters', mains: 'Mains', desserts: 'Desserts', beverages: 'Beverages' };
 const stripeOn = 'repeating-linear-gradient(135deg,#EFE6D8 0px,#EFE6D8 8px,#E4D6C2 8px,#E4D6C2 16px)';
 const stripeOff = 'repeating-linear-gradient(135deg,#ECECEC 0px,#ECECEC 8px,#E0E0E0 8px,#E0E0E0 16px)';
 
@@ -10,7 +9,7 @@ export function MenuItemTable({ items, onToggle, onEdit, onDelete }) {
 
   return (
     <div style={{ background: '#FFFFFF', border: '1px solid #E7DCCC', borderRadius: 16, overflow: 'hidden' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '2.4fr 1fr 0.8fr 0.9fr 1fr', padding: '12px 20px', background: '#F2EAE0', fontSize: 12, fontWeight: 700, color: '#8C8073', textTransform: 'uppercase', letterSpacing: 0.3 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1.5fr 0.8fr 0.9fr 1fr', padding: '12px 20px', background: '#F2EAE0', fontSize: 12, fontWeight: 700, color: '#8C8073', textTransform: 'uppercase', letterSpacing: 0.3 }}>
         <div>Item</div>
         <div>Category</div>
         <div>Price</div>
@@ -23,7 +22,7 @@ export function MenuItemTable({ items, onToggle, onEdit, onDelete }) {
         return (
           <div
             key={m._id}
-            style={{ display: 'grid', gridTemplateColumns: '2.4fr 1fr 0.8fr 0.9fr 1fr', padding: '14px 20px', borderTop: '1px solid #E7DCCC', alignItems: 'center', opacity: m.isAvailable ? 1 : 0.6 }}
+            style={{ display: 'grid', gridTemplateColumns: '2.2fr 1.5fr 0.8fr 0.9fr 1fr', padding: '14px 20px', borderTop: '1px solid #E7DCCC', alignItems: 'center', opacity: m.isAvailable ? 1 : 0.6 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
               <div
@@ -42,7 +41,8 @@ export function MenuItemTable({ items, onToggle, onEdit, onDelete }) {
                 </div>
               </div>
             </div>
-            <div style={{ fontSize: 13, color: '#8C8073' }}>{CATEGORY_LABELS[m.category]}</div>
+            {/* categoryPath is built server-side from the taxonomy, e.g. "Main Menu · Veg · Rajasthani" */}
+            <div style={{ fontSize: 12, color: '#8C8073', lineHeight: 1.35 }}>{m.categoryPath}</div>
             <div style={{ fontSize: 13.5, fontWeight: 700, color: '#2B2420' }}>{formatCurrency(m.price)}</div>
             <div
               onClick={() => onToggle(m._id)}

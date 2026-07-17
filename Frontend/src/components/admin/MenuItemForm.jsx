@@ -1,6 +1,26 @@
-const CATEGORIES = ['starters', 'mains', 'desserts', 'beverages'];
+import { useMenuTaxonomy, getSections, getGroups, getSubgroups, needsSubgroup } from '../../hooks/useMenuTaxonomy';
 
-export function MenuItemForm({ mode, form, onChange, onCancel, onSave, saving }) {
+export function MenuItemForm({ mode, form, onChange, onCancel, onSave, saving, error }) {
+  const { taxonomy, loading } = useMenuTaxonomy();
+
+  const sections = getSections(taxonomy);
+  const groups = getGroups(taxonomy, form.section);
+  const subgroups = getSubgroups(taxonomy, form.section, form.group);
+  const showSubgroup = needsSubgroup(taxonomy, form.section, form.group);
+
+  // Changing a parent invalidates its children — a leftover "hyderabadi" under Veg
+  // would be rejected by the server, so reset downward on every change.
+  function changeSection(section) {
+    const firstGroup = getGroups(taxonomy, section)[0]?.key ?? '';
+    const firstSub = getSubgroups(taxonomy, section, firstGroup)[0]?.key ?? '';
+    onChange({ ...form, section, group: firstGroup, subgroup: firstSub });
+  }
+
+  function changeGroup(group) {
+    const firstSub = getSubgroups(taxonomy, form.section, group)[0]?.key ?? '';
+    onChange({ ...form, group, subgroup: firstSub });
+  }
+
   return (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,32,0.35)', display: 'flex', justifyContent: 'flex-end', zIndex: 50 }}>
       <div style={{ background: '#FFFFFF', height: '100vh', width: 440, maxWidth: '92vw', padding: 28, boxSizing: 'border-box', overflowY: 'auto', boxShadow: '-8px 0 30px rgba(0,0,0,0.12)' }}>
@@ -10,11 +30,7 @@ export function MenuItemForm({ mode, form, onChange, onCancel, onSave, saving })
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <Field label="Name">
-            <input
-              value={form.name}
-              onChange={(e) => onChange({ ...form, name: e.target.value })}
-              style={inputStyle}
-            />
+            <input value={form.name} onChange={(e) => onChange({ ...form, name: e.target.value })} style={inputStyle} />
           </Field>
 
           <Field label="Description">
@@ -25,35 +41,73 @@ export function MenuItemForm({ mode, form, onChange, onCancel, onSave, saving })
             />
           </Field>
 
-          <div style={{ display: 'flex', gap: 12 }}>
-            <div style={{ flex: 1 }}>
-              <Field label="Price (₹)">
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={form.price}
-                  onChange={(e) => onChange({ ...form, price: e.target.value })}
-                  style={inputStyle}
-                />
-              </Field>
-            </div>
-            <div style={{ flex: 1 }}>
-              <Field label="Category">
-                <select
-                  value={form.category}
-                  onChange={(e) => onChange({ ...form, category: e.target.value })}
-                  style={inputStyle}
-                >
-                  {CATEGORIES.map((c) => (
-                    <option key={c} value={c}>
-                      {c[0].toUpperCase() + c.slice(1)}
+          <Field label="Price (₹)">
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={form.price}
+              onChange={(e) => onChange({ ...form, price: e.target.value })}
+              style={inputStyle}
+            />
+          </Field>
+
+          <div style={{ height: 1, background: '#E7DCCC', margin: '4px 0' }} />
+
+          {loading ? (
+            <div style={{ fontSize: 13, color: '#8C8073' }}>Loading categories…</div>
+          ) : (
+            <>
+              <Field label="Section">
+                <select value={form.section} onChange={(e) => changeSection(e.target.value)} style={inputStyle}>
+                  {sections.map((s) => (
+                    <option key={s.key} value={s.key}>
+                      {s.label}
                     </option>
                   ))}
                 </select>
               </Field>
-            </div>
-          </div>
+
+              <Field label="Group">
+                <select value={form.group} onChange={(e) => changeGroup(e.target.value)} style={inputStyle}>
+                  {groups.map((g) => (
+                    <option key={g.key} value={g.key}>
+                      {g.label}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+
+              {/* Only Mains goes three levels deep. */}
+              {showSubgroup && (
+                <Field label="Cuisine">
+                  <select
+                    value={form.subgroup || ''}
+                    onChange={(e) => onChange({ ...form, subgroup: e.target.value })}
+                    style={inputStyle}
+                  >
+                    {subgroups.map((s) => (
+                      <option key={s.key} value={s.key}>
+                        {s.label}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              )}
+
+              <div style={{ fontSize: 11.5, color: '#8C8073', marginTop: -6 }}>
+                {[
+                  taxonomy?.[form.section]?.label,
+                  taxonomy?.[form.section]?.groups?.[form.group]?.label,
+                  showSubgroup ? subgroups.find((s) => s.key === form.subgroup)?.label : null,
+                ]
+                  .filter(Boolean)
+                  .join(' · ')}
+              </div>
+            </>
+          )}
+
+          <div style={{ height: 1, background: '#E7DCCC', margin: '4px 0' }} />
 
           <Field label="Image URL (optional)">
             <input
@@ -85,6 +139,8 @@ export function MenuItemForm({ mode, form, onChange, onCancel, onSave, saving })
             </div>
           </div>
         </div>
+
+        {error && <div style={{ marginTop: 14, fontSize: 13, color: '#C24A26', fontWeight: 600 }}>{error}</div>}
 
         <div style={{ display: 'flex', gap: 10, marginTop: 22 }}>
           <div

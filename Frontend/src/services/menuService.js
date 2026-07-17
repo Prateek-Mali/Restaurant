@@ -1,5 +1,13 @@
 import api from './api';
 
+// The menu's structure is defined once on the server (config/menuTaxonomy.js) and
+// fetched here, so the form's dropdowns and the customer's tabs can't drift from
+// what the API actually accepts.
+async function getTaxonomy() {
+  const { data } = await api.get('/menu/taxonomy');
+  return data.taxonomy;
+}
+
 async function getMenu() {
   const { data } = await api.get('/menu');
   return data.items;
@@ -29,4 +37,12 @@ async function toggleAvailability(id) {
   return data.item;
 }
 
-export default { getMenu, getAllMenuItems, createMenuItem, updateMenuItem, deleteMenuItem, toggleAvailability };
+export default {
+  getTaxonomy,
+  getMenu,
+  getAllMenuItems,
+  createMenuItem,
+  updateMenuItem,
+  deleteMenuItem,
+  toggleAvailability,
+};
